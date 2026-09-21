@@ -1,0 +1,2036 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#030414">
+
+<title>Para Ian 💛</title>
+
+<style>
+
+/* =====================================================
+   CONFIGURACIÓN GENERAL
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #202967 0%,
+            #0b1033 38%,
+            #02030e 100%
+        );
+
+    color: white;
+}
+
+
+/* =====================================================
+   GALAXIA
+===================================================== */
+
+#galaxyZoom {
+    position: fixed;
+    inset: -15%;
+    z-index: 0;
+
+    transform: scale(1);
+
+    transition:
+        transform 5.5s cubic-bezier(.12,.65,.15,1),
+        filter 5.5s ease;
+
+    transform-origin: center center;
+}
+
+#galaxyZoom.zooming {
+    transform: scale(3.1);
+
+    filter:
+        brightness(1.4)
+        saturate(1.35);
+}
+
+#galaxy {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+
+/* =====================================================
+   NEBULOSAS
+===================================================== */
+
+.nebula {
+    position: fixed;
+
+    border-radius: 50%;
+
+    filter: blur(75px);
+
+    opacity: .18;
+
+    pointer-events: none;
+
+    z-index: 1;
+
+    transition:
+        transform 6s cubic-bezier(.15,.7,.15,1),
+        opacity 5s ease;
+}
+
+.nebula.one {
+    width: 430px;
+    height: 430px;
+
+    background: #6248d8;
+
+    top: -130px;
+    left: -110px;
+
+    animation:
+        nebulaMove 14s ease-in-out infinite alternate;
+}
+
+.nebula.two {
+    width: 370px;
+    height: 370px;
+
+    background: #e0a52d;
+
+    right: -130px;
+    bottom: -110px;
+
+    animation:
+        nebulaMove 17s ease-in-out infinite alternate-reverse;
+}
+
+.nebula.three {
+    width: 330px;
+    height: 330px;
+
+    background: #914ac7;
+
+    left: 35%;
+    top: 32%;
+
+    animation:
+        nebulaMove 19s ease-in-out infinite alternate;
+}
+
+body.zoom-active .nebula.one {
+    transform: scale(2.3);
+}
+
+body.zoom-active .nebula.two {
+    transform: scale(2.1);
+}
+
+body.zoom-active .nebula.three {
+    transform: scale(2.5);
+}
+
+@keyframes nebulaMove {
+
+    from {
+        transform: translate(0,0) scale(1);
+    }
+
+    to {
+        transform: translate(35px,-25px) scale(1.12);
+    }
+}
+
+
+/* =====================================================
+   ESCENA
+===================================================== */
+
+.scene {
+    position: relative;
+
+    z-index: 5;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.intro {
+    position: absolute;
+
+    top: 10%;
+
+    text-align: center;
+
+    z-index: 15;
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+.intro.hide {
+    opacity: 0;
+
+    transform:
+        translateY(-40px);
+
+    pointer-events: none;
+}
+
+.intro h1 {
+
+    font-size:
+        clamp(23px, 6vw, 40px);
+
+    font-weight: normal;
+
+    letter-spacing: 2px;
+
+    color: #ffe99a;
+
+    text-shadow:
+        0 0 10px #ffd83d,
+        0 0 25px rgba(255,216,61,.55);
+}
+
+.intro p {
+
+    margin-top: 12px;
+
+    font-size: 15px;
+
+    color: #dedede;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   ESTRELLAS EXTRA
+===================================================== */
+
+.star {
+    position: fixed;
+
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: #ffe36b;
+
+    box-shadow:
+        0 0 6px #ffe36b,
+        0 0 14px #ffd83d;
+
+    z-index: 3;
+
+    animation:
+        twinkle var(--duration)
+        ease-in-out infinite alternate,
+
+        drift var(--drift)
+        linear infinite;
+
+    transition:
+        transform 4s ease,
+        opacity 4s ease;
+}
+
+body.zoom-active .star {
+    transform: scale(2);
+}
+
+@keyframes twinkle {
+
+    0% {
+        opacity: .15;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: .3;
+    }
+}
+
+@keyframes drift {
+
+    from {
+        margin-top: 0;
+    }
+
+    to {
+        margin-top: -50px;
+    }
+}
+
+
+/* =====================================================
+   SOBRE
+===================================================== */
+
+.envelope-wrapper {
+
+    position: relative;
+
+    width: min(330px, 82vw);
+    height: 230px;
+
+    cursor: pointer;
+
+    perspective: 1000px;
+
+    z-index: 25;
+
+    transition:
+        transform .5s ease;
+}
+
+.envelope-wrapper:hover {
+    transform: scale(1.03);
+}
+
+.envelope {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Parte trasera */
+
+.envelope-back {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f5ca43,
+            #b97917
+        );
+
+    border-radius: 7px;
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.55),
+        0 0 30px rgba(255,210,55,.25);
+}
+
+
+/* Carta */
+
+.letter {
+
+    position: absolute;
+
+    width: 84%;
+    height: 92%;
+
+    left: 8%;
+    bottom: 2%;
+
+    padding:
+        25px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffdf2,
+            #f5e4a5
+        );
+
+    color: #493816;
+
+    border-radius: 5px;
+
+    text-align: center;
+
+    box-shadow:
+        0 4px 20px rgba(0,0,0,.3);
+
+    z-index: 2;
+
+    transition:
+        transform 1.5s cubic-bezier(.2,.8,.2,1),
+        z-index 0s .5s;
+}
+
+.letter h2 {
+
+    font-size: 21px;
+
+    margin-bottom: 12px;
+
+    color: #986710;
+}
+
+.letter p {
+
+    font-size: 15px;
+
+    line-height: 1.5;
+}
+
+
+/* Frente */
+
+.envelope-front {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 5;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e9b62e,
+            #c78916
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            50% 55%,
+            100% 0,
+            100% 100%,
+            0 100%
+        );
+
+    border-radius:
+        0 0 7px 7px;
+}
+
+
+/* Solapa */
+
+.envelope-flap {
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 60%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8d04c,
+            #d89a1c
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            50% 85%
+        );
+
+    transform-origin: top center;
+
+    transition:
+        transform 1.25s cubic-bezier(.4,0,.2,1);
+
+    z-index: 7;
+}
+
+
+/* Corazón */
+
+.heart {
+
+    position: absolute;
+
+    z-index: 10;
+
+    left: 50%;
+    top: 51%;
+
+    transform:
+        translate(-50%,-50%)
+        rotate(-45deg);
+
+    width: 42px;
+    height: 42px;
+
+    background: #ad2028;
+
+    box-shadow:
+        0 0 14px rgba(255,50,50,.65);
+
+    transition:
+        opacity .4s ease;
+}
+
+.heart::before,
+.heart::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 42px;
+    height: 42px;
+
+    background: #ad2028;
+
+    border-radius: 50%;
+}
+
+.heart::before {
+
+    top: -21px;
+    left: 0;
+}
+
+.heart::after {
+
+    left: 21px;
+    top: 0;
+}
+
+
+/* Sobre abierto */
+
+.envelope-wrapper.open
+.envelope-flap {
+
+    transform:
+        rotateX(180deg);
+}
+
+.envelope-wrapper.open
+.letter {
+
+    transform:
+        translateY(-125px);
+
+    z-index: 8;
+}
+
+.envelope-wrapper.open
+.heart {
+
+    opacity: 0;
+}
+
+
+/* =====================================================
+   TEXTO DE TOCAR
+===================================================== */
+
+.tap {
+
+    position: absolute;
+
+    bottom: 13%;
+
+    font-size: 14px;
+
+    letter-spacing: 2px;
+
+    color: #fff4bc;
+
+    animation:
+        pulseText 2s infinite;
+
+    transition:
+        opacity .5s;
+}
+
+.tap.hide {
+
+    opacity: 0;
+}
+
+@keyframes pulseText {
+
+    0%,
+    100% {
+        opacity: .35;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+
+/* =====================================================
+   MENSAJE
+===================================================== */
+
+.message {
+
+    position: absolute;
+
+    width: min(650px, 90vw);
+
+    top: 58%;
+
+    text-align: center;
+
+    opacity: 0;
+
+    transform:
+        translateY(35px)
+        scale(.94);
+
+    pointer-events: none;
+
+    transition:
+        opacity 1.6s ease,
+        transform 1.6s cubic-bezier(.2,.8,.2,1);
+
+    z-index: 35;
+}
+
+.message.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+.message p {
+
+    font-size:
+        clamp(20px, 5vw, 31px);
+
+    line-height: 1.55;
+
+    color: #fff6c5;
+
+    text-shadow:
+        0 0 9px rgba(255,220,90,.8),
+        0 0 25px rgba(255,190,40,.4);
+}
+
+.message .love {
+
+    display: block;
+
+    margin-top: 18px;
+
+    font-size:
+        clamp(26px, 7vw, 44px);
+
+    color: #ffd83d;
+
+    text-shadow:
+        0 0 10px #ffd83d,
+        0 0 25px rgba(255,210,50,.6);
+}
+
+
+/* =====================================================
+   FLORES CAYENDO
+===================================================== */
+
+.flower {
+
+    position: fixed;
+
+    top: -90px;
+
+    z-index: 8;
+
+    font-size: 38px;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    filter:
+        drop-shadow(
+            0 0 8px
+            rgba(255,215,60,.5)
+        );
+
+    animation:
+        flowerFall
+        var(--fall-time)
+        linear
+        infinite,
+
+        flowerSway
+        var(--sway-time)
+        ease-in-out
+        infinite alternate;
+
+    animation-delay:
+        var(--delay);
+}
+
+
+/* Posiciones */
+
+.flower.one {
+
+    left: 6%;
+
+    --fall-time: 15s;
+    --sway-time: 3.7s;
+    --delay: 0s;
+
+    font-size: 36px;
+}
+
+.flower.two {
+
+    left: 23%;
+
+    --fall-time: 18s;
+    --sway-time: 4.5s;
+    --delay: -7s;
+
+    font-size: 29px;
+}
+
+.flower.three {
+
+    left: 43%;
+
+    --fall-time: 16s;
+    --sway-time: 4s;
+    --delay: -11s;
+
+    font-size: 31px;
+}
+
+.flower.four {
+
+    left: 65%;
+
+    --fall-time: 20s;
+    --sway-time: 4.8s;
+    --delay: -3s;
+
+    font-size: 38px;
+}
+
+.flower.five {
+
+    left: 86%;
+
+    --fall-time: 17s;
+    --sway-time: 3.8s;
+    --delay: -13s;
+
+    font-size: 31px;
+}
+
+.flower.six {
+
+    left: 14%;
+
+    --fall-time: 22s;
+    --sway-time: 5s;
+    --delay: -17s;
+
+    font-size: 25px;
+}
+
+.flower.seven {
+
+    left: 34%;
+
+    --fall-time: 19s;
+    --sway-time: 4.2s;
+    --delay: -5s;
+
+    font-size: 34px;
+}
+
+.flower.eight {
+
+    left: 55%;
+
+    --fall-time: 23s;
+    --sway-time: 5.2s;
+    --delay: -19s;
+
+    font-size: 27px;
+}
+
+.flower.nine {
+
+    left: 75%;
+
+    --fall-time: 21s;
+    --sway-time: 4.6s;
+    --delay: -9s;
+
+    font-size: 30px;
+}
+
+.flower.ten {
+
+    left: 94%;
+
+    --fall-time: 24s;
+    --sway-time: 5.5s;
+    --delay: -21s;
+
+    font-size: 26px;
+}
+
+
+/* Caída */
+
+@keyframes flowerFall {
+
+    0% {
+
+        top: -90px;
+
+        opacity: 0;
+
+        transform:
+            translateX(0)
+            rotate(0deg);
+    }
+
+    8% {
+
+        opacity: .95;
+    }
+
+    50% {
+
+        opacity: .9;
+    }
+
+    88% {
+
+        opacity: .75;
+    }
+
+    100% {
+
+        top: 110%;
+
+        opacity: 0;
+
+        transform:
+            translateX(100px)
+            rotate(360deg);
+    }
+}
+
+
+/* Movimiento lateral */
+
+@keyframes flowerSway {
+
+    0% {
+
+        margin-left: -22px;
+
+        rotate: -8deg;
+    }
+
+    50% {
+
+        margin-left: 25px;
+
+        rotate: 8deg;
+    }
+
+    100% {
+
+        margin-left: -10px;
+
+        rotate: -5deg;
+    }
+}
+
+
+/* =====================================================
+   PARTÍCULAS
+===================================================== */
+
+.particle {
+
+    position: fixed;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #ffd83d;
+
+    pointer-events: none;
+
+    z-index: 60;
+
+    box-shadow:
+        0 0 12px #ffd83d;
+
+    animation:
+        particleFly
+        1.8s
+        ease-out
+        forwards;
+}
+
+@keyframes particleFly {
+
+    from {
+
+        opacity: 1;
+
+        transform:
+            translate(0,0)
+            scale(1);
+    }
+
+    to {
+
+        opacity: 0;
+
+        transform:
+            translate(
+                var(--x),
+                var(--y)
+            )
+            scale(0);
+    }
+}
+
+
+/* =====================================================
+   REPRODUCTOR
+===================================================== */
+
+.music-player {
+
+    position: fixed;
+
+    left: 50%;
+    bottom: 22px;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 100;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding:
+        9px 15px;
+
+    border:
+        1px solid
+        rgba(255,221,93,.3);
+
+    border-radius: 40px;
+
+    background:
+        rgba(5,7,25,.7);
+
+    backdrop-filter:
+        blur(12px);
+
+    box-shadow:
+        0 0 20px
+        rgba(255,210,60,.15);
+}
+
+.music-button {
+
+    width: 44px;
+    height: 44px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    background: #ffd83d;
+
+    color: #211b06;
+
+    font-size: 17px;
+
+    transition:
+        transform .2s ease;
+}
+
+.music-button:hover {
+
+    transform:
+        scale(1.08);
+}
+
+.music-name {
+
+    color: #fff2a9;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   REINICIAR
+===================================================== */
+
+.reset {
+
+    position: fixed;
+
+    top: 18px;
+    right: 18px;
+
+    z-index: 100;
+
+    border:
+        1px solid
+        rgba(255,220,80,.3);
+
+    background:
+        rgba(0,0,0,.25);
+
+    color: #ffe78a;
+
+    border-radius: 20px;
+
+    padding:
+        8px 13px;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity .5s;
+}
+
+.reset.visible {
+
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .envelope-wrapper {
+
+        width: 290px;
+
+        height: 200px;
+    }
+
+    .envelope-wrapper.open
+    .letter {
+
+        transform:
+            translateY(-105px);
+    }
+
+    .letter {
+
+        padding:
+            18px 13px;
+    }
+
+    .letter h2 {
+
+        font-size: 18px;
+    }
+
+    .letter p {
+
+        font-size: 13px;
+    }
+
+    .message {
+
+        top: 62%;
+    }
+
+    .music-name {
+
+        display: none;
+    }
+
+    .flower {
+
+        font-size: 29px;
+    }
+}
+
+
+/* =====================================================
+   REDUCIR ANIMACIONES SI EL DISPOSITIVO LO PREFIERE
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            .01ms !important;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ===================================================
+     GALAXIA
+=================================================== -->
+
+<div id="galaxyZoom">
+
+    <canvas id="galaxy"></canvas>
+
+</div>
+
+
+<!-- Nebulosas -->
+
+<div class="nebula one"></div>
+
+<div class="nebula two"></div>
+
+<div class="nebula three"></div>
+
+
+<div class="scene">
+
+
+    <!-- =================================================
+         INTRO
+    ================================================== -->
+
+    <div
+        class="intro"
+        id="intro"
+    >
+
+        <h1>
+            Para alguien especial 💛
+        </h1>
+
+        <p>
+            Hay algo que quiero entregarte...
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         FLORES
+    ================================================== -->
+
+    <div class="flower one">
+        🌻
+    </div>
+
+    <div class="flower two">
+        🌻
+    </div>
+
+    <div class="flower three">
+        🌼
+    </div>
+
+    <div class="flower four">
+        🌻
+    </div>
+
+    <div class="flower five">
+        🌻
+    </div>
+
+    <div class="flower six">
+        🌼
+    </div>
+
+    <div class="flower seven">
+        🌻
+    </div>
+
+    <div class="flower eight">
+        🌼
+    </div>
+
+    <div class="flower nine">
+        🌻
+    </div>
+
+    <div class="flower ten">
+        🌼
+    </div>
+
+
+    <!-- =================================================
+         SOBRE
+    ================================================== -->
+
+    <div
+        class="envelope-wrapper"
+        id="envelope"
+        role="button"
+        tabindex="0"
+        aria-label="Abrir carta"
+    >
+
+        <div class="envelope">
+
+
+            <!-- Parte trasera -->
+
+            <div class="envelope-back"></div>
+
+
+            <!-- Carta -->
+
+            <div class="letter">
+
+                <h2>
+                    Para Ian 💛
+                </h2>
+
+                <p>
+                    Una pequeña sorpresa
+                    <br>
+                    hecha especialmente
+                    para vos.
+                </p>
+
+            </div>
+
+
+            <!-- Solapa -->
+
+            <div class="envelope-flap"></div>
+
+
+            <!-- Frente -->
+
+            <div class="envelope-front"></div>
+
+
+            <!-- Corazón -->
+
+            <div class="heart"></div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         INSTRUCCIÓN
+    ================================================== -->
+
+    <div
+        class="tap"
+        id="tap"
+    >
+
+        ✨ Tocá el sobre ✨
+
+    </div>
+
+
+    <!-- =================================================
+         MENSAJE FINAL
+    ================================================== -->
+
+    <div
+        class="message"
+        id="message"
+        aria-live="polite"
+    >
+
+        <p>
+
+            Feliz inicio de primavera
+            en mi corazón y mundo siempre habrá
+            un lugar que te pertenece.
+
+        </p>
+
+
+        <span class="love">
+
+            Te amo Ian. 💛
+
+        </span>
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     MÚSICA
+===================================================== -->
+
+<div class="music-player">
+
+    <button
+        type="button"
+        class="music-button"
+        id="musicButton"
+        aria-label="Reproducir música"
+    >
+
+        ▶
+
+    </button>
+
+
+    <span class="music-name">
+
+        Yellow · Coldplay ♪
+
+    </span>
+
+</div>
+
+
+<!--
+=========================================================
+MÚSICA
+
+Poné tu archivo:
+
+yellow.mp3
+
+en la misma carpeta que index.html.
+=========================================================
+-->
+
+<audio
+    id="music"
+    loop
+>
+
+    <source
+        src="yellow.mp3"
+        type="audio/mpeg"
+    >
+
+</audio>
+
+
+<!-- Reiniciar -->
+
+<button
+    type="button"
+    class="reset"
+    id="reset"
+>
+
+    ↻ Volver a empezar
+
+</button>
+
+
+
+<script>
+
+/* =====================================================
+   GALAXIA CANVAS
+===================================================== */
+
+const canvas =
+    document.getElementById("galaxy");
+
+const ctx =
+    canvas.getContext("2d");
+
+let stars = [];
+
+
+function resizeCanvas() {
+
+    canvas.width =
+        window.innerWidth * 1.3;
+
+    canvas.height =
+        window.innerHeight * 1.3;
+}
+
+
+resizeCanvas();
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+/* Crear estrellas */
+
+for (let i = 0; i < 240; i++) {
+
+    stars.push({
+
+        x:
+            Math.random()
+            * window.innerWidth
+            * 1.3,
+
+        y:
+            Math.random()
+            * window.innerHeight
+            * 1.3,
+
+        radius:
+            Math.random()
+            * 1.7
+            + .2,
+
+        speed:
+            Math.random()
+            * .35
+            + .05,
+
+        alpha:
+            Math.random(),
+
+        pulse:
+            Math.random()
+            * .025
+            + .005
+
+    });
+
+}
+
+
+/* Dibujar galaxia */
+
+function drawGalaxy() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    stars.forEach(star => {
+
+
+        star.y -=
+            star.speed;
+
+
+        if (star.y < -10) {
+
+            star.y =
+                canvas.height + 10;
+
+            star.x =
+                Math.random()
+                * canvas.width;
+        }
+
+
+        star.alpha +=
+            star.pulse;
+
+
+        if (
+            star.alpha > 1 ||
+            star.alpha < .15
+        ) {
+
+            star.pulse *= -1;
+        }
+
+
+        ctx.beginPath();
+
+
+        ctx.arc(
+
+            star.x,
+            star.y,
+            star.radius,
+            0,
+            Math.PI * 2
+
+        );
+
+
+        ctx.fillStyle =
+            `rgba(
+                255,
+                225,
+                100,
+                ${star.alpha}
+            )`;
+
+
+        ctx.shadowBlur = 9;
+
+        ctx.shadowColor =
+            "#ffd83d";
+
+
+        ctx.fill();
+
+    });
+
+
+    requestAnimationFrame(
+        drawGalaxy
+    );
+}
+
+
+drawGalaxy();
+
+
+/* =====================================================
+   ESTRELLAS HTML
+===================================================== */
+
+function createStars() {
+
+    for (
+        let i = 0;
+        i < 45;
+        i++
+    ) {
+
+        const star =
+            document.createElement(
+                "div"
+            );
+
+
+        star.className =
+            "star";
+
+
+        star.style.left =
+            Math.random()
+            * 100
+            + "%";
+
+
+        star.style.top =
+            Math.random()
+            * 100
+            + "%";
+
+
+        star.style.setProperty(
+
+            "--duration",
+
+            (
+                1.5
+                +
+                Math.random() * 3
+            )
+            + "s"
+
+        );
+
+
+        star.style.setProperty(
+
+            "--drift",
+
+            (
+                4
+                +
+                Math.random() * 8
+            )
+            + "s"
+
+        );
+
+
+        const size =
+            2
+            +
+            Math.random() * 4;
+
+
+        star.style.width =
+            size + "px";
+
+
+        star.style.height =
+            size + "px";
+
+
+        document.body.appendChild(
+            star
+        );
+
+    }
+
+}
+
+
+createStars();
+
+
+/* =====================================================
+   ELEMENTOS
+===================================================== */
+
+const envelope =
+    document.getElementById(
+        "envelope"
+    );
+
+const intro =
+    document.getElementById(
+        "intro"
+    );
+
+const tap =
+    document.getElementById(
+        "tap"
+    );
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+const reset =
+    document.getElementById(
+        "reset"
+    );
+
+const galaxyZoom =
+    document.getElementById(
+        "galaxyZoom"
+    );
+
+
+let opened = false;
+
+
+/* =====================================================
+   ABRIR SOBRE
+===================================================== */
+
+function openEnvelope() {
+
+    if (opened) return;
+
+
+    opened = true;
+
+
+    /* Abrir sobre */
+
+    envelope.classList.add(
+        "open"
+    );
+
+
+    /* Ocultar introducción */
+
+    intro.classList.add(
+        "hide"
+    );
+
+
+    tap.classList.add(
+        "hide"
+    );
+
+
+    /* Primera explosión */
+
+    createParticles();
+
+
+    /* Esperar y comenzar zoom */
+
+    setTimeout(() => {
+
+        galaxyZoom.classList.add(
+            "zooming"
+        );
+
+
+        document.body.classList.add(
+            "zoom-active"
+        );
+
+
+        /* Segunda lluvia */
+
+        createParticles();
+
+
+    }, 700);
+
+
+    /* Mostrar mensaje */
+
+    setTimeout(() => {
+
+        message.classList.add(
+            "show"
+        );
+
+
+        reset.classList.add(
+            "visible"
+        );
+
+    }, 2800);
+
+}
+
+
+/* Click */
+
+envelope.addEventListener(
+    "click",
+    openEnvelope
+);
+
+
+/* Teclado */
+
+envelope.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter" ||
+            event.key === " "
+        ) {
+
+            event.preventDefault();
+
+            openEnvelope();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PARTÍCULAS
+===================================================== */
+
+function createParticles() {
+
+
+    const rect =
+        envelope.getBoundingClientRect();
+
+
+    const centerX =
+        rect.left
+        +
+        rect.width / 2;
+
+
+    const centerY =
+        rect.top
+        +
+        rect.height / 2;
+
+
+    for (
+        let i = 0;
+        i < 90;
+        i++
+    ) {
+
+
+        const particle =
+            document.createElement(
+                "div"
+            );
+
+
+        particle.className =
+            "particle";
+
+
+        particle.style.left =
+            centerX + "px";
+
+
+        particle.style.top =
+            centerY + "px";
+
+
+        const angle =
+            Math.random()
+            * Math.PI
+            * 2;
+
+
+        const distance =
+            70
+            +
+            Math.random() * 280;
+
+
+        particle.style.setProperty(
+
+            "--x",
+
+            Math.cos(angle)
+            * distance
+            + "px"
+
+        );
+
+
+        particle.style.setProperty(
+
+            "--y",
+
+            Math.sin(angle)
+            * distance
+            + "px"
+
+        );
+
+
+        particle.style.animationDuration =
+
+            (
+                1
+                +
+                Math.random() * 1.6
+            )
+            + "s";
+
+
+        document.body.appendChild(
+            particle
+        );
+
+
+        setTimeout(() => {
+
+            particle.remove();
+
+        }, 2700);
+
+    }
+
+}
+
+
+/* =====================================================
+   MÚSICA
+===================================================== */
+
+const music =
+    document.getElementById(
+        "music"
+    );
+
+const musicButton =
+    document.getElementById(
+        "musicButton"
+    );
+
+
+let playing = false;
+
+
+musicButton.addEventListener(
+    "click",
+    () => {
+
+
+        if (!playing) {
+
+
+            music.play()
+
+            .then(() => {
+
+                playing = true;
+
+                musicButton.textContent =
+                    "❚❚";
+
+                musicButton.setAttribute(
+                    "aria-label",
+                    "Pausar música"
+                );
+
+            })
+
+            .catch(() => {
+
+                alert(
+                    "Asegurate de tener el archivo yellow.mp3 junto a index.html."
+                );
+
+            });
+
+
+        } else {
+
+
+            music.pause();
+
+
+            playing = false;
+
+
+            musicButton.textContent =
+                "▶";
+
+
+            musicButton.setAttribute(
+                "aria-label",
+                "Reproducir música"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   REINICIAR
+===================================================== */
+
+reset.addEventListener(
+    "click",
+    () => {
+
+
+        opened = false;
+
+
+        envelope.classList.remove(
+            "open"
+        );
+
+
+        message.classList.remove(
+            "show"
+        );
+
+
+        intro.classList.remove(
+            "hide"
+        );
+
+
+        tap.classList.remove(
+            "hide"
+        );
+
+
+        reset.classList.remove(
+            "visible"
+        );
+
+
+        galaxyZoom.classList.remove(
+            "zooming"
+        );
+
+
+        document.body.classList.remove(
+            "zoom-active"
+        );
+
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+```
